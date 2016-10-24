@@ -1,0 +1,211 @@
+<html><head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    // Test border
+    //$("div#fold").css("border", "3px solid red");
+    $("div#fold").css("display", "none");
+
+    var imgPlus = "plus.png";
+    var imgMinus = "minus.png";
+
+    // expand/hide all
+    $('img.foldall').on("click", (function(event) {
+            if ($(this).attr("src") == imgPlus) {
+
+                // Expand: Change the toggle labels
+                $(this).attr("src",imgMinus);
+                $('span#foldall').text("Hide All");
+
+                // Change all div/images on all folds
+                $('img.fold').attr("src",imgMinus);
+                $('div#fold').css("display", "block");
+            }
+            else {
+                // Hide: Change the toggle labels
+                $(this).attr("src",imgPlus);
+                $('span#foldall').text("Expand All");
+
+                // Change all div/images on all folds
+                $('img.fold').attr("src",imgPlus);
+                $('div#fold').css("display", "none");
+            }
+        })
+    );
+    // expand/hide individual elements
+    $('img.fold').on("click", (function(event) {
+            element = event.currentTarget.id;
+            $('.'+element).toggle(300);
+
+            $(this).attr("src", $(this).attr("src") == imgPlus ? imgMinus : imgPlus);
+
+        })
+    );
+
+    // Handle combobox partition change
+    $( "select.partition" ).change(function() {
+        var selected = $(this).find('option:selected').val()
+        location.hash = "#" + selected;
+    });
+
+    // Handle combobox combobox change
+    $( "select.device" ).change(function() {
+        var selected = $(this).find('option:selected').val()
+        location = selected + ".htm";
+    });
+
+});
+</script>
+<style>
+body {
+    font-size: 0px;
+}
+.mainbody {
+    position: fixed;
+    z-index: 1;
+    top: 41px;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+    height: 95%;
+    margin-left: 10px;
+    width:800px;
+}
+.toggle {
+    text-align: left;
+    font-size: 14px;
+    font-family: sans-serif;
+    z-index: 999;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+    line-height: 40px; 
+    padding-left: 10px;
+    display: inline-block;
+    width: 125;
+}
+.headercenter {
+    width: 30%;
+    display: table;
+    margin: 0 auto;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: bold;
+    z-index: 999;
+    text-align: center;
+    display: inline-block;
+}
+.headerselector {
+    text-align: right;
+    font-size: 14px;
+    font-family: sans-serif;
+    z-index: 999;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+    line-height: 40px; 
+    display: inline-block;
+}
+.generated {
+    text-align: center;
+    font-size: 10px;
+    font-family: sans-serif;
+    width: 800px;
+    height: 32px;
+    vertical-align: middle;
+    margin-top: 20px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    background:#dddddd;
+    z-index: 1;
+    display: block;
+}
+.generatedlabel {
+    height: 12px;
+    vertical-align: middle;
+}
+.header {
+    text-align: left;
+    font-size: 14px;
+    font-family: sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 95%;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-color: #a3d1e3;
+    line-height: 40px; 
+}
+select.device {
+    text-align: right;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+select.partition {
+    text-align: right;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+.partitionhead {
+    display: block;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    background-color: #cccccc;
+    vertical-align: middle;
+}
+.foldformatted {
+    display: inline-block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    font-size: 12px;
+    color: #444444;
+}
+.presubhead {
+    display: inline-block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    font-weight: bold;
+    font-size: 12px;
+    padding-top: 9px;
+}
+.preformatted {
+    display: inline;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    font-size: 12px;
+}
+.pretitle {
+    display: inline;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    font-weight: bold;
+    font-size: 14px;
+}
+.foldtitle {
+    font-size: 12px;
+}
+img.fold {
+    display: inline-block;
+    margin: 0 5 0 0px;
+    vertical-align: sub;
+}
+img.foldall {
+    display: inline-block;
+    margin: 0 0 0 20px;
+    vertical-align: sub;
+}
+</style>
+</head><body>
